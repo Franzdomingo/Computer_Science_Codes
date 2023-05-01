@@ -21,4 +21,4 @@ while True:
     elif guess < number:
         print("Too low. Guess again.")
     else:
-        print("Too high. Guess again.")100
+        print("Too high. Guess again.")
