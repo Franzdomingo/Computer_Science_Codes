@@ -1,26 +1,24 @@
 import random
 
-print('Hello! What is your name?')
-myName = input()
+# Generate a random number between 1 and 1000
+number = random.randint(1, 1000)
 
-number = random.randint(1, 20)
-print('Well, ' + myName + ', I am thinking of a number between 1 and 20.')
+# Set the number of guesses to 0
+guesses = 0
 
-for guessesTaken in range(6):
-    print('Take a guess.')
-    guess = input()
-    guess = int(guess)
+# Loop until the user guesses the correct number
+while True:
+    # Ask the user to guess a number
+    guess = int(input("Guess a number between 1 and 1000: "))
 
-    if guess < number:
-        print('Your guess is too low.')
-    elif guess > number:
-        print('Your guess is too high.')
-    else:
+    # Increment the number of guesses
+    guesses += 1
+
+    # Check if the guess is correct
+    if guess == number:
+        print("Congratulations! You guessed the number in", guesses, "guesses.")
         break
-
-if guess == number:
-    guessesTaken = str(guessesTaken + 1)
-    print('Good job, ' + myName + '! You guessed my number in ' + guessesTaken + ' guesses!')
-else:
-    number = str(number)
-    print('Nope. The number I was thinking of was ' + number + '.')
+    elif guess < number:
+        print("Too low. Guess again.")
+    else:
+        print("Too high. Guess again.")100
