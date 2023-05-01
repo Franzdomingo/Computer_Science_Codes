@@ -15,7 +15,7 @@ public class Samp {
             guess = input.nextInt();
             numberOfTries++;
 
-            if (guess == numberToGuess) {1
+            if (guess == numberToGuess) {
                 win = true;
             } else if (guess < numberToGuess) {
                 System.out.println("Your guess is too low");
