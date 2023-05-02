@@ -29,3 +29,4 @@ public class Samp {
         System.out.println("It took you " + numberOfTries + " tries");
     }
 }
+
