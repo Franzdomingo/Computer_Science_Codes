@@ -21,3 +21,4 @@ killjoy.secondary_weapon = "ghost"
 print(killjoy.name, killjoy.role, killjoy.secondary_weapon)
 killjoy.crouch()
 omen.walk("left")
+
