@@ -1,4 +1,5 @@
 import os
+
 class Undead:
     undead_list = []
     
@@ -153,10 +154,14 @@ def display_undead():
 
 def menu():
     while True:
-        print("\n1. Create Undead")
-        print("2. Command Undead")
-        print("3. Display Undead")
-        print("4. Quit\n")
+        print("\n")
+        print("=" * 27)
+        print("Welcome to the Undead Game!")
+        print("=" * 27)
+        print("1. Create an undead")
+        print("2. Command an undead")
+        print("3. Display all undead characters")
+        print("4. Exit game\n")
         
         choice = input("Enter your choice: ")
         
@@ -170,6 +175,4 @@ def menu():
             break
         else:
             print("Invalid choice. Please try again.")
-
-
 menu()
