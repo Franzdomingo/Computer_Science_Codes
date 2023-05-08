@@ -34,6 +34,7 @@ class Undead:
             
     @classmethod
     def display_all(cls):
+        os.system('cls')
         print("Current Undead Characters:")
         for undead in cls.undead_list:
             undead.display_info()
@@ -46,12 +47,15 @@ class Zombie(Undead):
     def attack(self, target):
         if self.hp > 50:
             target.hp -= self.hp * 0.5
+            os.system('cls')
             print(f"{self.name} attacked {target.name} for {self.hp * 0.5} damage!")
         else:
+            os.system('cls')
             print(f"{self.name} cannot attack. Its HP is too low.")
 
     def eat(self, target):
         self.hp += target.hp * 0.5
+        os.system('cls')
         print(f"{self.name} ate {target.name} and restored {target.hp * 0.5} HP!")
         target.hp = 0
 
@@ -69,10 +73,12 @@ class Vampire(Undead):
 
     def attack(self, target):
         target.hp -= self.hp
+        os.system('cls')
         print(f"{self.name} attacked {target.name} for {self.hp} damage!")
 
     def bite(self, target):
         self.hp += target.hp * 0.8
+        os.system('cls')
         print(f"{self.name} bit {target.name} and restored {target.hp * 0.8} HP!")
         target.hp *= 0.2
 
@@ -90,6 +96,7 @@ class Skeleton(Undead):
 
     def attack(self, target):
         target.hp -= self.hp * 0.7
+        os.system('cls')
         print(f"{self.name} attacked {target.name} for {self.hp * 0.7} damage!")
 
     def command_undead(self, command, target=None):
@@ -105,11 +112,13 @@ class Ghost(Undead):
     def attack(self, target):
         damage = self.hp * 0.2 # attack damage is only 20% of its HP
         target.receive_damage(damage)
+        os.system('cls')
         print(f"{self.name} attacked {target.name} for {damage:.2f} damage.")
     
     def haunt(self, target):
         hp_gain = target.hp * 0.1 # gain 10% of the target's HP
         self.hp += hp_gain
+        os.system('cls')
         print(f"{self.name} haunted {target.name} and gained {hp_gain:.2f} HP.")
 
 def create_undead():
@@ -164,9 +173,11 @@ def menu():
         print("4. Exit game\n")
         
         choice = input("Enter your choice: ")
+        print("\n")
         
         if choice == "1":
             create_undead()
+            os.system('cls')
         elif choice == "2":
             command_undead()
         elif choice == "3":
