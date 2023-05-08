@@ -79,7 +79,7 @@ class Vampire(Undead):
     def bite(self, target):
         self.hp += target.hp * 0.8
         os.system('cls')
-        print(f"{self.name} bit {target.name} and restored {target.hp * 0.8} HP!")
+        print(f"{self.name} bit {target.name} and gained {target.hp * 0.8} HP!")
         target.hp *= 0.2
 
     def command_undead(self, command, target=None):
