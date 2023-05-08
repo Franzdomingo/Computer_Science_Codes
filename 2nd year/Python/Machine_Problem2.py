@@ -46,7 +46,6 @@ class Undead:
             undead.display_info()
         print("=" * 34)
 
-
 class Zombie(Undead):
     def __init__(self, name):
         super().__init__(name, 100)
@@ -159,10 +158,74 @@ class Ghost(Undead):
         else:
             super().command_undead(command, target)
 
-def create_undead():
-    type = input("Enter type of undead (zombie, vampire, skeleton, ghost): ")
-    name = input("Enter name of undead: ")
+class Lich(Undead):
+    def __init__(self, name):
+        super().__init__(name, 200)
+    
+    def attack(self, target):
+        damage = self.hp * 0.7
+        target.hp -= damage
+        os.system('cls')
+        print(f"{self.name} attacked {target.name} for {damage} damage!")
 
+    def cast_spell(self, target):
+        hp_gain = target.hp * 0.1 # gain 10% of the target's HP
+        self.hp += hp_gain
+        os.system('cls')
+        print(f"{self.name} cast a spell on {target.name} and gained {hp_gain:.2f} HP.")
+
+    def command_undead(self, command, target=None):
+        if self.is_dead():
+            print(f"{self.name} is dead and cannot be commanded!")
+            return
+        elif target.is_dead():
+            print(f"{target.name} is dead and cannot be commanded!")
+            return       
+        if command == "attack":
+            self.attack(target)
+        elif command == "cast spell":
+            self.cast_spell(target)
+        else:
+            super().command_undead(command, target)
+
+class Mummy(Undead):
+    def __init__(self, name):
+        super().__init__(name, 150)
+        self.revive_hp = 150
+        
+    def attack(self, target):
+        damage = self.hp * 0.5 + target.hp * 0.1
+        target.hp -= damage
+        os.system('cls')
+        print(f"{self.name} attacked {target.name} for {damage} damage!")
+
+    def die(self):
+        self.hp = 0
+        os.system('cls')
+        print(f"{self.name} died!")
+
+    def revive(self):
+        self.hp = self.revive_hp
+        os.system('cls')
+        print(f"{self.name} is revived and has {self.revive_hp} HP!")
+
+    def command_undead(self, command, target=None):       
+        if command == "attack":
+            self.attack(target)
+        elif command == "die":
+            self.die()
+        elif command == "revive":
+            self.revive()
+        else:
+            super().command_undead(command, target)
+
+    
+def create_undead():
+    type = input("Enter type of undead (zombie, vampire, skeleton, ghost, lich, mummy): ")
+    name = input("Enter name of undead: ")
+    while any(undead.name == name for undead in Undead.undead_list):
+        print("This name is already taken. Please enter a different name.")
+        name = input("Enter name of undead: ")
     if type == "zombie":
         return Zombie(name)
     elif type == "vampire":
@@ -171,13 +234,17 @@ def create_undead():
         return Skeleton(name)
     elif type == "ghost":
         return Ghost(name)
+    elif type == "lich":
+        return Lich(name)
+    elif type == "mummy":
+        return Mummy(name)
     else:
         print("Invalid type of undead!")
         return None
 
 def command_undead():
     name = input("Enter name of undead to command: ")
-    command = input("Enter command (attack(available for every undead), bite(Vampire only), eat(Zombie Only), haunt(Ghost Only)): ")
+    command = input("Enter command (attack(available for every undead), bite(Vampire only), eat(Zombie Only), haunt(Ghost Only), cast spell(Lich Only), die(Mummy Only), revive(Mummy Only)): ")
     target_name = input("Enter name of target: ")
     undead = None
     for u in Undead.undead_list:
