@@ -35,7 +35,7 @@ class Undead:
     @classmethod
     def display_all(cls):
         os.system('cls')
-        print("Current Undead Characters:")
+        print("Current Undead Characters Details:")
         for undead in cls.undead_list:
             undead.display_info()
 
