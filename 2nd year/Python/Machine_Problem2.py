@@ -1,3 +1,4 @@
+import os
 class Undead:
     undead_list = []
     
@@ -5,6 +6,9 @@ class Undead:
         self.name = name
         self.hp = hp
         self.__class__.undead_list.append(self)
+    
+    def is_dead(self):
+        return self.hp <= 0
 
     def attack(self, target):
         if self.hp > 50:
@@ -14,25 +18,25 @@ class Undead:
             print(f"{self.name} cannot attack. Its HP is too low.")
 
     def display_info(self):
-        print(f"{self.name} ({type(self).__name__}) - HP: {self.hp}")
+        print(f"{self.name} ({type(self).__name__}) - HP: {self.hp if self.hp > 0 else '0'} - State: {'Dead' if self.is_dead() else 'Alive'}")
 
     def command_undead(self, command, target=None):
-        print(f"{self.name} is trying to {command} {target.name}...")
-        if command == "attack":
-            self.attack(target)
-        elif command == "bite":
-            self.bite(target)
-        elif command == "haunt":
-            self.haunt(target)
-        elif command == "cast spell":
-            self.cast_spell(target)
+            print(f"{self.name} is trying to {command} {target.name}...")
+            if command == "attack":
+                self.attack(target)
+            elif command == "bite":
+                self.bite(target)
+            elif command == "haunt":
+                self.haunt(target)
+            elif command == "cast spell":
+                self.cast_spell(target)
             
     @classmethod
     def display_all(cls):
-        print("All undead:")
+        print("Current Undead Characters:")
         for undead in cls.undead_list:
             undead.display_info()
- 
+
 
 class Zombie(Undead):
     def __init__(self, name):
@@ -124,7 +128,7 @@ def create_undead():
 
 def command_undead():
     name = input("Enter name of undead to command: ")
-    command = input("Enter command (attack, bite, eat, haunt, cast spell): ")
+    command = input("Enter command (attack(available for every undead), bite(Vampire only), eat(Zombie Only), haunt(Ghost Only)): ")
     target_name = input("Enter name of target: ")
     undead = None
     for u in Undead.undead_list:
@@ -151,8 +155,8 @@ def menu():
     while True:
         print("\n1. Create Undead")
         print("2. Command Undead")
-        print("3. Display all Undead")
-        print("4. Quit")
+        print("3. Display Undead")
+        print("4. Quit\n")
         
         choice = input("Enter your choice: ")
         
