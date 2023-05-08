@@ -19,9 +19,13 @@ class Undead:
             print(f"{self.name} cannot attack. Its HP is too low.")
 
     def display_info(self):
-        print(f"{self.name} ({type(self).__name__}) - HP: {self.hp if self.hp > 0 else '0'} - State: {'Dead' if self.is_dead() else 'Alive'}")
+        status = 'Alive' if not self.is_dead() else 'Perished' if isinstance(self, Ghost) else 'Dead'
+        print(f"{self.name} ({type(self).__name__}) - HP: {self.hp if self.hp > 0 else '0'} - Status: {status}")
 
     def command_undead(self, command, target=None):
+            if target.is_dead() or self.is_dead():
+                print(f"{self.name} is dead and cannot be commanded!")
+                return
             print(f"{self.name} is trying to {command} {target.name}...")
             if command == "attack":
                 self.attack(target)
@@ -35,9 +39,12 @@ class Undead:
     @classmethod
     def display_all(cls):
         os.system('cls')
+        print("=" * 34)
         print("Current Undead Characters Details:")
+        print("=" * 34)
         for undead in cls.undead_list:
             undead.display_info()
+        print("=" * 34)
 
 
 class Zombie(Undead):
@@ -60,6 +67,12 @@ class Zombie(Undead):
         target.hp = 0
 
     def command_undead(self, command, target=None):
+        if self.is_dead():
+            print(f"{self.name} is dead and cannot be commanded!")
+            return
+        elif target.is_dead():
+            print(f"{target.name} is dead and cannot be commanded!")
+            return      
         if command == "attack":
             self.attack(target)
         elif command == "eat":
@@ -83,6 +96,12 @@ class Vampire(Undead):
         target.hp *= 0.2
 
     def command_undead(self, command, target=None):
+        if self.is_dead():
+            print(f"{self.name} is dead and cannot be commanded!")
+            return
+        elif target.is_dead():
+            print(f"{target.name} is dead and cannot be commanded!")
+            return
         if command == "attack":
             self.attack(target)
         elif command == "bite":
@@ -100,6 +119,12 @@ class Skeleton(Undead):
         print(f"{self.name} attacked {target.name} for {self.hp * 0.7} damage!")
 
     def command_undead(self, command, target=None):
+        if self.is_dead():
+            print(f"{self.name} is dead and cannot be commanded!")
+            return
+        elif target.is_dead():
+            print(f"{target.name} is dead and cannot be commanded!")
+            return
         if command == "attack":
             self.attack(target)
         else:
@@ -110,20 +135,34 @@ class Ghost(Undead):
         super().__init__(name, 40) # initial HP is half of the default HP of undead
     
     def attack(self, target):
-        damage = self.hp * 0.2 # attack damage is only 20% of its HP
-        target.receive_damage(damage)
+        target.hp -= self.hp * 0.2
         os.system('cls')
-        print(f"{self.name} attacked {target.name} for {damage:.2f} damage.")
+        print(f"{self.name} attacked {target.name} for {self.hp * 0.2} damage!")
     
     def haunt(self, target):
         hp_gain = target.hp * 0.1 # gain 10% of the target's HP
         self.hp += hp_gain
         os.system('cls')
         print(f"{self.name} haunted {target.name} and gained {hp_gain:.2f} HP.")
+        
+    def command_undead(self, command, target=None):
+        if self.is_dead():
+            print(f"{self.name} is dead and cannot be commanded!")
+            return
+        elif target.is_dead():
+            print(f"{target.name} is dead and cannot be commanded!")
+            return
+        if command == "attack":
+            self.attack(target)
+        elif command == "haunt":
+            self.haunt(target)
+        else:
+            super().command_undead(command, target)
 
 def create_undead():
     type = input("Enter type of undead (zombie, vampire, skeleton, ghost): ")
     name = input("Enter name of undead: ")
+
     if type == "zombie":
         return Zombie(name)
     elif type == "vampire":
@@ -176,6 +215,7 @@ def menu():
         print("\n")
         
         if choice == "1":
+            os.system('cls')
             create_undead()
             os.system('cls')
         elif choice == "2":
