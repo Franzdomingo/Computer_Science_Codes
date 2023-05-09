@@ -244,8 +244,10 @@ def create_undead():
 
 def command_undead():
     name = input("Enter name of undead to command: ")
-    command = input("Enter command (attack(available for every undead), bite(Vampire only), eat(Zombie Only), haunt(Ghost Only), cast spell(Lich Only), die(Mummy Only), revive(Mummy Only)): ")
-    target_name = input("Enter name of target: ")
+    command = input("\nCommands:\n- attack (Available for Every Undead)\n- bite (Vampire only)\n- eat (Zombie Only)\n- haunt (Ghost Only)\n- cast spell (Lich Only)\n- die (Mummy Only)\n- revive (Mummy Only)\nEnter command:")
+    target_name = None
+    if command not in ["die", "revive"]:
+        target_name = input("Enter name of target: ")
     undead = None
     for u in Undead.undead_list:
         if u.name == name:
@@ -255,13 +257,14 @@ def command_undead():
         print("Undead not found!")
         return
     target = None
-    for u in Undead.undead_list:
-        if u.name == target_name:
-            target = u
-            break
-    if target is None:
-        print("Target not found!")
-        return
+    if target_name:
+        for u in Undead.undead_list:
+            if u.name == target_name:
+                target = u
+                break
+        if target is None:
+            print("Target not found!")
+            return
     undead.command_undead(command, target)
 
 def display_undead():
