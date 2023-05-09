@@ -1,24 +1,5 @@
 import os
-import shutil
 
-def box_print(text):
-    term_size = shutil.get_terminal_size()
-    width = term_size.columns
-    lines = text.split('\n')
-    longest_line = max(lines, key=len)
-    box_width = max(len(longest_line) + 2, 10)
-    padding = ' ' * ((box_width - len(longest_line)) // 2)
-    top_bottom_border = '+' + '-' * (box_width - 2) + '+'
-    blank_line = '|' + ' ' * (box_width - 2) + '|'
-
-    print(top_bottom_border.center(width))
-    print(blank_line.center(width))
-    for line in lines:
-        box_line = '|' + padding + line.ljust(box_width - 2 - len(padding)) + padding + '|'
-        print(box_line.center(width))
-    print(blank_line.center(width))
-    print(top_bottom_border.center(width))
-    
 class Undead:
     undead_list = []
     
@@ -250,6 +231,7 @@ class Mummy(Undead):
             super().command_undead(command, target)
     
 def create_undead():
+    print("UNDEAD CREATION:")
     type = input("Enter type of undead (zombie, vampire, skeleton, ghost, lich, mummy): ")
     name = input("Enter name of undead: ")
     while any(undead.name == name for undead in Undead.undead_list):
@@ -350,7 +332,7 @@ def menu():
                 print("Undead display is now off.")
         elif choice == "4":
             os.system('cls')
-            box_print('CREATED BY FRANZ PHILLIP G. DOMINGO')            
+            print("CREATED BY FRANZ PHILLIP G. DOMINGO")            
             break
         else:
             print("Invalid choice. Please try again.")
