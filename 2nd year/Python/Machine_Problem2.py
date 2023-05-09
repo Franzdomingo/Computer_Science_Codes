@@ -46,8 +46,6 @@ class Undead:
             for undead in cls.undead_list:
                 undead.display_info()
 
-
-
 class Zombie(Undead):
     def __init__(self, name):
         super().__init__(name, 100)
