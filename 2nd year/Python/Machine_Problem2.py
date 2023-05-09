@@ -39,12 +39,15 @@ class Undead:
     @classmethod
     def display_all(cls):
         os.system('cls')
-        print("=" * 34)
-        print("Current Undead Characters Details:")
-        print("=" * 34)
-        for undead in cls.undead_list:
-            undead.display_info()
-        print("=" * 34)
+        if len(cls.undead_list) == 0:
+            print("No current undead characters available.")
+        else:
+            print("Current Undead Characters Details:")
+
+            for undead in cls.undead_list:
+                undead.display_info()
+
+
 
 class Zombie(Undead):
     def __init__(self, name):
@@ -270,7 +273,10 @@ def command_undead():
 def display_undead():
     Undead.display_all()
 
+display_on = True
+
 def menu():
+    global display_on
     while True:
         print("\n")
         print("=" * 27)
@@ -278,7 +284,7 @@ def menu():
         print("=" * 27)
         print("1. Create an undead")
         print("2. Command an undead")
-        print("3. Display all undead characters")
+        print("3. Toggle display of undead characters")
         print("4. Exit game\n")
         
         choice = input("Enter your choice: ")
@@ -291,9 +297,16 @@ def menu():
         elif choice == "2":
             command_undead()
         elif choice == "3":
-            display_undead()
+            display_on = not display_on
+            if display_on:
+                print("Undead display is now on.")
+            else:
+                print("Undead display is now off.")
         elif choice == "4":
             break
         else:
             print("Invalid choice. Please try again.")
+        if display_on:
+            display_undead()
+
 menu()
