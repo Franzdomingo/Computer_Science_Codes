@@ -38,7 +38,6 @@ class Undead:
             
     @classmethod
     def display_all(cls):
-        os.system('cls')
         if len(cls.undead_list) == 0:
             print("No current undead characters available.")
         else:
@@ -248,17 +247,27 @@ def create_undead():
 def command_undead():
     name = input("Enter name of undead to command: ")
     command = input("\nCommands:\n- attack (Available for Every Undead)\n- bite (Vampire only)\n- eat (Zombie Only)\n- haunt (Ghost Only)\n- cast spell (Lich Only)\n- die (Mummy Only)\n- revive (Mummy Only)\nEnter command:")
+    
+    if command not in ["attack", "bite", "eat", "haunt", "cast spell", "die", "revive"]:
+        os.system('cls')
+        print("Invalid command!")
+        return
+    
     target_name = None
     if command not in ["die", "revive"]:
         target_name = input("Enter name of target: ")
+        
     undead = None
     for u in Undead.undead_list:
         if u.name == name:
             undead = u
             break
+    
     if undead is None:
+        os.system('cls')        
         print("Undead not found!")
         return
+    
     target = None
     if target_name:
         for u in Undead.undead_list:
@@ -266,9 +275,12 @@ def command_undead():
                 target = u
                 break
         if target is None:
+            os.system('cls')
             print("Target not found!")
             return
+    
     undead.command_undead(command, target)
+
 
 def display_undead():
     Undead.display_all()
@@ -299,8 +311,10 @@ def menu():
         elif choice == "3":
             display_on = not display_on
             if display_on:
+                os.system('cls')
                 print("Undead display is now on.")
             else:
+                os.system('cls')
                 print("Undead display is now off.")
         elif choice == "4":
             break
