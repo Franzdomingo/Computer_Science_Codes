@@ -167,7 +167,7 @@ class Ghost(Undead):
 
 class Lich(Undead):
     def __init__(self, name):
-        super().__init__(name, 130)
+        super().__init__(name, 100)
     
     def attack(self, target):
         damage = self.hp * 0.7
