@@ -27,11 +27,15 @@ class Undead:
     @classmethod
     def display_all(cls):
         if len(undead_list) == 0:
+            print("---------------------------------------")
             print("No current undead characters available.")
+            print("---------------------------------------")
         else:
+            print("---------------------------------------")
             print("Current Undead Characters Details:")
             for undead in undead_list:
                 undead.display_info()
+            print("---------------------------------------")
     
     def display_info(self):
         status = 'Alive' if (self.hp > 0 or isinstance(self, Lich)) else 'Perished' if isinstance(self, Ghost) else 'Dead'
@@ -50,29 +54,41 @@ class Zombie(Undead):
             if isinstance(target, Ghost):
                 target.hp -= (self.hp * 0.5)*0.1
                 os.system('cls')
+                print("---------------------------------------")
                 print(f"{self.name} attacked {target.name} for {(self.hp * 0.5)*0.1:.2f} damage!")
+                print("---------------------------------------")
             else:
                 target.hp -= self.hp * 0.5
                 os.system('cls')
+                print("---------------------------------------")
                 print(f"{self.name} attacked {target.name} for {self.hp * 0.5:.2f} damage!")
+                print("---------------------------------------")
         else:
             os.system('cls')
+            print("---------------------------------------")
             print(f"{self.name} cannot attack. Its HP is too low.")
+            print("---------------------------------------")
 
     def eat(self, target):
         self.hp += target.hp * 0.5
         os.system('cls')
+        print("---------------------------------------")
         print(f"{self.name} ate {target.name} and restored {target.hp * 0.5:.2f} HP!")
+        print("---------------------------------------")
         target.hp = 0
 
     def command_undead(self, command, target=None):
         if self.isDead():
             os.system('cls')
+            print("---------------------------------------")
             print(f"{self.name} is dead and cannot be commanded!")
+            print("---------------------------------------")
             return
         elif target.isDead():
             os.system('cls')
+            print("---------------------------------------")
             print(f"{target.name} is dead and cannot be commanded!")
+            print("---------------------------------------")
             return      
         if command == "attack":
             self.attack(target)
@@ -95,20 +111,28 @@ class Vampire(Undead):
         else:
             target.hp -= self.hp
         os.system('cls')
+        print("---------------------------------------")
         print(f"{self.name} attacked {target.name} for {self.hp * 0.1 if isinstance(target, Ghost) else self.hp} damage!")
-
+        print("---------------------------------------")
     def bite(self, target):
             self.hp += target.hp * 0.8
+            os.system('cls')
+            print("---------------------------------------")
             print(f"{self.name} bit {target.name} and gained {target.hp * 0.8:.2f} HP!")
+            print("---------------------------------------")
 
     def command_undead(self, command, target=None):
         if self.isDead():
             os.system('cls')
+            print("---------------------------------------")
             print(f"{self.name} is dead and cannot be commanded!")
+            print("---------------------------------------")
             return
         elif target.isDead():
             os.system('cls')
+            print("---------------------------------------")
             print(f"{target.name} is dead and cannot be commanded!")
+            print("---------------------------------------")
             return
         if command == "attack":
             self.attack(target)
@@ -132,18 +156,26 @@ class Skeleton(Undead):
             target.hp -= self.hp * 0.7
         os.system('cls')
         if isinstance(target, Ghost):
+            print("---------------------------------------")
             print(f"{self.name} attacked {target.name} for {(self.hp * 0.7)*0.1:.2f} damage!")
+            print("---------------------------------------")
         else:
+            print("---------------------------------------")
             print(f"{self.name} attacked {target.name} for {self.hp * 0.7:.2f} damage!")
+            print("---------------------------------------")
 
     def command_undead(self, command, target=None):
         if self.isDead():
             os.system('cls')
+            print("---------------------------------------")
             print(f"{self.name} is dead and cannot be commanded!")
+            print("---------------------------------------")
             return
         elif target.isDead():
             os.system('cls')
+            print("---------------------------------------")
             print(f"{target.name} is dead and cannot be commanded!")
+            print("---------------------------------------")
             return
         if command == "attack":
             self.attack(target)
@@ -165,24 +197,34 @@ class Ghost(Undead):
             target.hp -= self.hp * 0.2
         os.system('cls')
         if isinstance(target, Ghost):
+            print("---------------------------------------")
             print(f"{self.name} attacked {target.name} for {self.hp * 0.02:.2f} damage!")
+            print("---------------------------------------")
         else:
+            print("---------------------------------------")
             print(f"{self.name} attacked {target.name} for {self.hp * 0.2:.2f} damage!")
+            print("---------------------------------------")
     
     def haunt(self, target):
         hp_gain = target.hp * 0.1
         self.hp += hp_gain
         os.system('cls')
+        print("---------------------------------------")
         print(f"{self.name} haunted {target.name} and gained {hp_gain:.2f} HP.")
+        print("---------------------------------------")
         
     def command_undead(self, command, target=None):
         if self.isDead():
             os.system('cls')
+            print("---------------------------------------")
             print(f"{self.name} is dead and cannot be commanded!")
+            print("---------------------------------------")
             return
         elif target.isDead():
             os.system('cls')
+            print("---------------------------------------")
             print(f"{target.name} is dead and cannot be commanded!")
+            print("---------------------------------------")
             return
         if command == "attack":
             self.attack(target)
@@ -207,7 +249,9 @@ class Lich(Undead):
             damage = self.hp * 0.7
             target.hp -= damage
         os.system('cls')
+        print("---------------------------------------")
         print(f"{self.name} attacked {target.name} for {damage:.2f} damage!")
+        print("---------------------------------------")
 
     def cast_spell(self, target):
         if isinstance(target, Ghost):
@@ -217,16 +261,22 @@ class Lich(Undead):
         target.hp -= hp_loss
         self.hp += hp_loss
         os.system('cls')
+        print("---------------------------------------")
         print(f"{self.name} cast a spell on {target.name} and gained {hp_loss:.2f} HP.")
+        print("---------------------------------------")
     
     def command_undead(self, command, target=None):
         if self.isDead():
             os.system('cls')
+            print("---------------------------------------")
             print(f"{self.name} is alive but cannot be commanded!")
+            print("---------------------------------------")
             return
         elif target.isDead():
             os.system('cls')
-            print(f"{target.name} is dead and cannot be commanded!")
+            print("---------------------------------------")
+            print(f"{target.name} is dead!")
+            print("---------------------------------------")
             return       
         if command == "attack":
             self.attack(target)
@@ -242,7 +292,7 @@ class Mummy(Undead):
     
     def __init__(self, name):
         super().__init__(name, 100)
-        self.revive_hp = 150
+        self.revive_hp = 100
         
     def attack(self, target):
         if isinstance(target, Ghost):
@@ -252,17 +302,23 @@ class Mummy(Undead):
             damage = self.hp * 0.5 + target.hp * 0.1
             target.hp -= damage
         os.system('cls')
+        print("---------------------------------------")
         print(f"{self.name} attacked {target.name} for {damage:.2f} damage!")
+        print("---------------------------------------")
 
     def die(self):
         self.hp = 0
         os.system('cls')
+        print("---------------------------------------")
         print(f"{self.name} died!")
+        print("---------------------------------------")
 
     def revive(self):
         self.hp = self.revive_hp
         os.system('cls')
+        print("---------------------------------------")
         print(f"{self.name} is revived and has {self.revive_hp} HP!")
+        print("---------------------------------------")
 
     def command_undead(self, command, target=None):       
         if command == "attack":
@@ -276,7 +332,8 @@ class Mummy(Undead):
             
 def create_undead():
     print("UNDEAD CREATION:")
-    type = input("Enter type of undead(zombie, vampire, skeleton, ghost, lich, mummy): ")
+    type = input("- zombie\n- vampire\n- skeleton\n- ghost\n- lich\n- mummy\nEnter type of undead: ")
+    print("---------------------------------------")
     name = input("Enter name of undead: ")
     if (name == None or name == ""):
         print("No name provided. Please enter a name")
@@ -301,17 +358,23 @@ def create_undead():
         return None
 
 def command_undead():
+    print("---------------------------------------")
     name = input("Enter name of undead to command: ")
-    command = input("\nCommands:\n- attack (Available for Every Undead)\n- bite (Vampire only)\n- eat (Zombie Only)\n- haunt (Ghost Only)\n- cast spell (Lich Only)\n- die (Mummy Only)\n- revive (Mummy Only)\n\nEnter command:")
+    print("---------------------------------------")
+    command = input("Commands:\n- attack (Available for Every Undead)\n- bite (Vampire only)\n- eat (Zombie Only)\n- haunt (Ghost Only)\n- cast spell (Lich Only)\n- die (Mummy Only)\n- revive (Mummy Only)\n\nEnter command:")
     
     if command not in ["attack", "bite", "eat", "haunt", "cast spell", "die", "revive"]:
         os.system('cls')
+        print("---------------------------------------")
         print("Invalid command!")
+        print("---------------------------------------")
         return
     
     targetName = None
     if command not in ["die", "revive"]:
+        print("---------------------------------------")
         targetName = input("Enter name of target: ")
+        print("---------------------------------------")
         
     try:
         undead = None
@@ -321,8 +384,10 @@ def command_undead():
                 break
 
         if undead is None:
-            os.system('cls')        
+            os.system('cls')  
+            print("---------------------------------------")     
             print("Undead not found!")
+            print("---------------------------------------")
             return
 
         target = None
@@ -333,14 +398,18 @@ def command_undead():
                     break
             if target is None:
                 os.system('cls')
+                print("---------------------------------------")
                 print("Target not found!")
+                print("---------------------------------------")
                 return
             
         undead.command_undead(command, target)
         
     except AttributeError:
         os.system('cls')
+        print("---------------------------------------")
         print("Command not available for this undead subclass!")
+        print("---------------------------------------")
 
 def display_undead():
     Undead.display_all()
@@ -349,16 +418,16 @@ def menu():
     global display_on
     while True:
         print("\n")
-        print("=" * 27)
-        print("Welcome to the Undead Game!")
-        print("=" * 27)
+        print("---------------------------------------")
+        print("---------------Game Menu---------------")
+        print("---------------------------------------")
         print("1. Create an undead")
         print("2. Command an undead")
         print("3. Toggle display of undead characters")
         print("4. Exit game\n")
-        
+        print("---------------------------------------")
         choice = input("Enter your choice: ")
-        print("\n")
+        print("---------------------------------------")
         
         if choice == "1":
             create_undead()
@@ -376,10 +445,14 @@ def menu():
                 print("Undead display is now off.")
         elif choice == "4":
             os.system('cls')
-            print("CREATED BY FRANZ PHILLIP G. DOMINGO")            
+            print("---------------------------------------")
+            print("CREATED BY FRANZ PHILLIP G. DOMINGO")     
+            print("---------------------------------------")       
             break
         else:
+            print("---------------------------------------")
             print("Invalid choice. Please try again.")
+            print("---------------------------------------")
         if display_on:
             display_undead()
 
