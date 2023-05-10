@@ -84,7 +84,7 @@ class Vampire(Undead):
     hp = property(Undead.getHP, Undead.setHP)
        
     def __init__(self, name):
-        super().__init__(name, 120)
+        super().__init__(name, 100)
 
     def attack(self, target):
         target.hp -= self.hp
@@ -145,7 +145,7 @@ class Ghost(Undead):
     hp = property(Undead.getHP, Undead.setHP)
     
     def __init__(self, name):
-        super().__init__(name, 40) # initial HP is half of the default HP of undead
+        super().__init__(name, 100) # initial HP is half of the default HP of undead
     
     def attack(self, target):
         target.hp -= self.hp * 0.2
@@ -180,7 +180,7 @@ class Lich(Undead):
     hp = property(Undead.getHP, Undead.setHP)
     
     def __init__(self, name):
-        super().__init__(name, 100)
+        super().__init__(name, 80)
     
     def attack(self, target):
         damage = self.hp * 0.7
@@ -218,7 +218,7 @@ class Mummy(Undead):
     hp = property(Undead.getHP, Undead.setHP)
     
     def __init__(self, name):
-        super().__init__(name, 150)
+        super().__init__(name, 100)
         self.revive_hp = 150
         
     def attack(self, target):
