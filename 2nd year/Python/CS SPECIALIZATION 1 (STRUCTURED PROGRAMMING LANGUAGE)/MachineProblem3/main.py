@@ -21,21 +21,6 @@ class Undead:
     def display_info(self):
         status = 'Alive' if (self.hp > 0 or isinstance(self, Lich)) else 'Perished' if isinstance(self, Ghost) else 'Dead'
         print(f"{self.name} - {type(self).__name__} - HP: {self.hp if self.hp > 0 else '0'} - Status: {status}")
-        
-    def command_undead(self, command, target=None):
-            if target.is_dead() or self.is_dead():
-                print(f"{self.name} is dead and cannot be commanded!")
-                return
-            print(f"{self.name} is trying to {command} {target.name}...")
-            if command == "attack":
-                self.attack(target)
-            elif command == "bite":
-                self.bite(target)
-            elif command == "haunt":
-                self.haunt(target)
-            elif command == "cast spell":
-                self.cast_spell(target)
-            
     @classmethod
     def display_all(cls):
         if len(cls.undead_list) == 0:
