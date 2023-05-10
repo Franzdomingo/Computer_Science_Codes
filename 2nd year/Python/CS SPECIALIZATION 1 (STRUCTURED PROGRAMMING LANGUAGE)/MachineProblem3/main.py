@@ -1,8 +1,6 @@
 import os
 display_on = True
-import os
 
-display_on = True
 undead_list = []
 
 class Undead:
@@ -313,7 +311,7 @@ def command_undead():
         
     except AttributeError:
         os.system('cls')
-        print("Command not available for this undead class!")
+        print("Command not available for this undead subclass!")
 
 def display_undead():
     Undead.display_all()
@@ -338,7 +336,7 @@ def menu():
             os.system('cls')
         elif choice == "2":
             command_undead()
-            print("\n")
+            os.system('cls')
         elif choice == "3":
             display_on = not display_on
             if display_on:

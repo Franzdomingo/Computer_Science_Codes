@@ -1,12 +1,12 @@
 import os
 display_on = True
 class Undead:
-    undead_list = []
+    Undead.undead_list = []
     
     def __init__(self, name, hp):
         self.__name = name
         self.__hp = hp
-        self.__class__.undead_list.append(self)
+        self.__class__.Undead.undead_list.append(self)
     
     def isDead(self):
         return self.__hp <= 0
@@ -32,11 +32,11 @@ class Undead:
 
     @classmethod
     def display_all(cls):
-        if len(cls.undead_list) == 0:
+        if len(cls.Undead.undead_list) == 0:
             print("No current undead characters available.")
         else:
             print("Current Undead Characters Details:")
-            for undead in cls.undead_list:
+            for undead in cls.Undead.undead_list:
                 undead.display_info()
 
 class Zombie(Undead):
@@ -276,7 +276,7 @@ def create_undead():
     print("UNDEAD CREATION:")
     type = input("Enter type of undead(zombie, vampire, skeleton, ghost, lich, mummy): ")
     name = input("Enter name of undead: ")
-    while any(undead.name == name for undead in undead_list):
+    while any(undead.name == name for undead in Undead.undead_list):
         print("This name is already taken. Please enter a different name.")
         name = input("Enter name of undead: ")
     if type == "zombie":
@@ -310,7 +310,7 @@ def command_undead():
         
     try:
         undead = None
-        for u in undead_list:
+        for u in Undead.undead_list:
             if u.name == name:
                 undead = u
                 break
@@ -322,7 +322,7 @@ def command_undead():
 
         target = None
         if targetName:
-            for u in undead_list:
+            for u in Undead.undead_list:
                 if u.name == targetName:
                     target = u
                     break
