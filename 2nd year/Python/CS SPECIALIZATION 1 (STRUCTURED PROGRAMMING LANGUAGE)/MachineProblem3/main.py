@@ -50,11 +50,11 @@ class Zombie(Undead):
             if isinstance(target, Ghost):
                 target.hp -= (self.hp * 0.5)*0.1
                 os.system('cls')
-                print(f"{self.name} attacked {target.name} for {(self.hp * 0.5)*0.1} damage!")
+                print(f"{self.name} attacked {target.name} for {(self.hp * 0.5)*0.1:.2f} damage!")
             else:
                 target.hp -= self.hp * 0.5
                 os.system('cls')
-                print(f"{self.name} attacked {target.name} for {self.hp * 0.5} damage!")
+                print(f"{self.name} attacked {target.name} for {self.hp * 0.5:.2f} damage!")
         else:
             os.system('cls')
             print(f"{self.name} cannot attack. Its HP is too low.")
@@ -62,7 +62,7 @@ class Zombie(Undead):
     def eat(self, target):
         self.hp += target.hp * 0.5
         os.system('cls')
-        print(f"{self.name} ate {target.name} and restored {target.hp * 0.5} HP!")
+        print(f"{self.name} ate {target.name} and restored {target.hp * 0.5:.2f} HP!")
         target.hp = 0
 
     def command_undead(self, command, target=None):
@@ -99,7 +99,7 @@ class Vampire(Undead):
 
     def bite(self, target):
             self.hp += target.hp * 0.8
-            print(f"{self.name} bit {target.name} and gained {target.hp * 0.8} HP!")
+            print(f"{self.name} bit {target.name} and gained {target.hp * 0.8:.2f} HP!")
 
     def command_undead(self, command, target=None):
         if self.isDead():
@@ -132,9 +132,9 @@ class Skeleton(Undead):
             target.hp -= self.hp * 0.7
         os.system('cls')
         if isinstance(target, Ghost):
-            print(f"{self.name} attacked {target.name} for {(self.hp * 0.7)*0.1} damage!")
+            print(f"{self.name} attacked {target.name} for {(self.hp * 0.7)*0.1:.2f} damage!")
         else:
-            print(f"{self.name} attacked {target.name} for {self.hp * 0.7} damage!")
+            print(f"{self.name} attacked {target.name} for {self.hp * 0.7:.2f} damage!")
 
     def command_undead(self, command, target=None):
         if self.isDead():
@@ -165,9 +165,9 @@ class Ghost(Undead):
             target.hp -= self.hp * 0.2
         os.system('cls')
         if isinstance(target, Ghost):
-            print(f"{self.name} attacked {target.name} for {self.hp * 0.02} damage!")
+            print(f"{self.name} attacked {target.name} for {self.hp * 0.02:.2f} damage!")
         else:
-            print(f"{self.name} attacked {target.name} for {self.hp * 0.2} damage!")
+            print(f"{self.name} attacked {target.name} for {self.hp * 0.2:.2f} damage!")
     
     def haunt(self, target):
         hp_gain = target.hp * 0.1
@@ -207,7 +207,7 @@ class Lich(Undead):
             damage = self.hp * 0.7
             target.hp -= damage
         os.system('cls')
-        print(f"{self.name} attacked {target.name} for {damage} damage!")
+        print(f"{self.name} attacked {target.name} for {damage:.2f} damage!")
 
     def cast_spell(self, target):
         if isinstance(target, Ghost):
@@ -252,7 +252,7 @@ class Mummy(Undead):
             damage = self.hp * 0.5 + target.hp * 0.1
             target.hp -= damage
         os.system('cls')
-        print(f"{self.name} attacked {target.name} for {damage} damage!")
+        print(f"{self.name} attacked {target.name} for {damage:.2f} damage!")
 
     def die(self):
         self.hp = 0
