@@ -1,19 +1,23 @@
 import os
 display_on = True
-import os
-
-display_on = True
-undead_list = []
-
 class Undead:
+    undead_list = []
+    
     def __init__(self, name, hp):
         self.__name = name
         self.__hp = hp
-        undead_list.append(self)
+        self.__class__.undead_list.append(self)
     
     def isDead(self):
         return self.__hp <= 0
-   
+
+    def attack(self, target):
+        if self.__hp > 50:
+            target.hp -= self.__hp * 0.5
+            print(f"{self.__name} attacked {target.name} for {self.__hp * 0.5} damage!")
+        else:
+            print(f"{self.__name} cannot attack. Its HP is too low.")
+    
     def getName(self):
         return self.__name
 
@@ -28,16 +32,12 @@ class Undead:
 
     @classmethod
     def display_all(cls):
-        if len(undead_list) == 0:
+        if len(cls.undead_list) == 0:
             print("No current undead characters available.")
         else:
             print("Current Undead Characters Details:")
-            for undead in undead_list:
+            for undead in cls.undead_list:
                 undead.display_info()
-    
-    def display_info(self):
-        status = 'Alive' if (self.hp > 0 or isinstance(self, Lich)) else 'Perished' if isinstance(self, Ghost) else 'Dead'
-        print(f"{self.name} - {type(self).__name__} - HP: {self.hp if self.hp > 0 else '0'} - Status: {status}")       
 
 class Zombie(Undead):
     
@@ -78,13 +78,17 @@ class Zombie(Undead):
         else:
             super().command_undead(command, target)
 
+    def display_info(self):
+        status = 'Alive' if (self.hp > 0 or isinstance(self, Lich)) else 'Perished' if isinstance(self, Ghost) else 'Dead'
+        print(f"{self.name} - {type(self).__name__} - HP: {self.hp if self.hp > 0 else '0'} - Status: {status}")   
+
 class Vampire(Undead):
     
     name = property(Undead.getName, Undead.setName)
     hp = property(Undead.getHP, Undead.setHP)
        
     def __init__(self, name):
-        super().__init__(name, 100)
+        super().__init__(name, 120)
 
     def attack(self, target):
         target.hp -= self.hp
@@ -112,6 +116,11 @@ class Vampire(Undead):
             self.bite(target)
         else:
             super().command_undead(command, target)
+
+    def display_info(self):
+        status = 'Alive' if (self.hp > 0 or isinstance(self, Lich)) else 'Perished' if isinstance(self, Ghost) else 'Dead'
+        print(f"{self.name} - {type(self).__name__} - HP: {self.hp if self.hp > 0 else '0'} - Status: {status}")
+
 class Skeleton(Undead):
     
     name = property(Undead.getName, Undead.setName)
@@ -139,13 +148,17 @@ class Skeleton(Undead):
         else:
             super().command_undead(command, target)
             
+    def display_info(self):
+        status = 'Alive' if (self.hp > 0 or isinstance(self, Lich)) else 'Perished' if isinstance(self, Ghost) else 'Dead'
+        print(f"{self.name} - {type(self).__name__} - HP: {self.hp if self.hp > 0 else '0'} - Status: {status}")
+
 class Ghost(Undead):
     
     name = property(Undead.getName, Undead.setName)
     hp = property(Undead.getHP, Undead.setHP)
     
     def __init__(self, name):
-        super().__init__(name, 100) # initial HP is half of the default HP of undead
+        super().__init__(name, 40) # initial HP is half of the default HP of undead
     
     def attack(self, target):
         target.hp -= self.hp * 0.2
@@ -174,13 +187,17 @@ class Ghost(Undead):
         else:
             super().command_undead(command, target)
 
+    def display_info(self):
+        status = 'Alive' if (self.hp > 0 or isinstance(self, Lich)) else 'Perished' if isinstance(self, Ghost) else 'Dead'
+        print(f"{self.name} - {type(self).__name__} - HP: {self.hp if self.hp > 0 else '0'} - Status: {status}")
+
 class Lich(Undead):
     
     name = property(Undead.getName, Undead.setName)
     hp = property(Undead.getHP, Undead.setHP)
     
     def __init__(self, name):
-        super().__init__(name, 80)
+        super().__init__(name, 100)
     
     def attack(self, target):
         damage = self.hp * 0.7
@@ -212,13 +229,17 @@ class Lich(Undead):
         else:
             super().command_undead(command, target)
             
+    def display_info(self):
+        status = 'Alive' if (self.hp > 0 or isinstance(self, Lich)) else 'Perished' if isinstance(self, Ghost) else 'Dead'
+        print(f"{self.name} - {type(self).__name__} - HP: {self.hp if self.hp > 0 else '0'} - Status: {status}")
+
 class Mummy(Undead):
     
     name = property(Undead.getName, Undead.setName)
     hp = property(Undead.getHP, Undead.setHP)
     
     def __init__(self, name):
-        super().__init__(name, 100)
+        super().__init__(name, 150)
         self.revive_hp = 150
         
     def attack(self, target):
@@ -247,13 +268,14 @@ class Mummy(Undead):
         else:
             super().command_undead(command, target)
             
+    def display_info(self):
+        status = 'Alive' if (self.hp > 0 or isinstance(self, Lich)) else 'Perished' if isinstance(self, Ghost) else 'Dead'
+        print(f"{self.name} - {type(self).__name__} - HP: {self.hp if self.hp > 0 else '0'} - Status: {status}")
+    
 def create_undead():
     print("UNDEAD CREATION:")
     type = input("Enter type of undead(zombie, vampire, skeleton, ghost, lich, mummy): ")
     name = input("Enter name of undead: ")
-    if (name == None or name == ""):
-        print("No name provided. Please enter a name")
-        return None    
     while any(undead.name == name for undead in undead_list):
         print("This name is already taken. Please enter a different name.")
         name = input("Enter name of undead: ")
