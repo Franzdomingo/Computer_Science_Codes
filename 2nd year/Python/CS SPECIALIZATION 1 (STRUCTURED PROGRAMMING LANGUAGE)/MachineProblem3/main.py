@@ -336,7 +336,7 @@ def menu():
             os.system('cls')
         elif choice == "2":
             command_undead()
-            os.system('cls')
+            print("\n")
         elif choice == "3":
             display_on = not display_on
             if display_on:
