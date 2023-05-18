@@ -84,7 +84,6 @@ class Zombie(Undead):
         print("------------------------------------------------------------------------------")
         print(f"{self.name} ate {target.name} and restored {target.hp * 0.5:.2f} HP!")
         print("------------------------------------------------------------------------------")
-        target.hp = 0
 
     def command_undead(self, command, target=None):
         if self.isDead():
@@ -294,10 +293,7 @@ class Lich(Undead):
         print("------------------------------------------------------------------------------")
 
     def cast_spell(self, target):
-        if isinstance(target, Ghost):
-            hp_loss = (target.hp * 0.1)*0.1
-        else:
-            hp_loss = target.hp * 0.1
+        hp_loss = target.hp * 0.1
         self.hp += hp_loss
         os.system('clear')
 
