@@ -100,7 +100,7 @@ class Zombie(Undead):
             print("------------------------------------------------------------------------------")
             print("-------------------------------Command Feedback-------------------------------")
             print("------------------------------------------------------------------------------")
-            print(f"{target.name} is dead and cannot be commanded!")
+            print(f"{target.name} is dead!")
             print("------------------------------------------------------------------------------")
             return      
         if command == "attack":
@@ -153,7 +153,7 @@ class Vampire(Undead):
             print("------------------------------------------------------------------------------")
             print("-------------------------------Command Feedback-------------------------------")
             print("------------------------------------------------------------------------------")
-            print(f"{target.name} is dead and cannot be commanded!")
+            print(f"{target.name} is dead!")
             print("------------------------------------------------------------------------------")
             return
         if command == "attack":
@@ -204,7 +204,7 @@ class Skeleton(Undead):
             print("------------------------------------------------------------------------------")
             print("-------------------------------Command Feedback-------------------------------")
             print("------------------------------------------------------------------------------")
-            print(f"{target.name} is dead and cannot be commanded!")
+            print(f"{target.name} is dead!")
             print("------------------------------------------------------------------------------")
             return
         if command == "attack":
@@ -263,7 +263,7 @@ class Ghost(Undead):
             print("------------------------------------------------------------------------------")
             print("-------------------------------Command Feedback-------------------------------")
             print("------------------------------------------------------------------------------")
-            print(f"{target.name} is dead and cannot be commanded!")
+            print(f"{target.name} is dead!")
             print("------------------------------------------------------------------------------")
             return
         if command == "attack":
@@ -298,7 +298,6 @@ class Lich(Undead):
             hp_loss = (target.hp * 0.1)*0.1
         else:
             hp_loss = target.hp * 0.1
-        target.hp -= hp_loss
         self.hp += hp_loss
         os.system('clear')
 
